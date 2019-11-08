@@ -4,9 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Added bootstrap cdn for style functionality-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <!-- Linked CSS -->
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    
+    <!-- Added jQuery CDN to load data from the openweathermap.org API -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+    
     <title>Weather Dashboard</title>
 </head>
 <body>
+    <div class="container">
+        <div class="dashboard">WEATHER DASHBOARD</div>
+
+        <div class="citySearch">
+            <h4>Search for a City</h4>
+             <!-- <form class="city-search" action="/action_page.php">
+                <input type="text" placeholder="Enter City..." name="search">
+                <button type="submit"><i class="fa fa search"></i></button>
+            </form>
+        </div> -->
+        <div id="weather">
+        <div id="description"></div>
+        <div id="temp"></div>
+        </div>
+
+        <!-- div form to input city-->
+        <div>
+            <form id="city-form">
+                <div><input type="text" id="city-name"></div>
+                <div><input type="submit"></div>
+             </form> 
+       </div>
+    <!-- Weather Dashboard functionality in Steps -->
+    <!-- Step 1: Used and removed $(document).ready(() {} within the script tag below to test page funtionality of jQuery event and call functions -->
+    <!-- Step 2: event.preventDefault added to submit button to prevent the default behavior of the page or the reloading of page(s) -->
+    <!-- Step 3: After adding event.preventDefault(), as a form handler used JS to create var to get value e.g. city element -->
+    <!-- Step 4: Call to open the openweathermap api to get data for web page using jQuery ajax .get method -->
+    <script>
+        $("#city-form").submit(function(event){ 
+            event.preventDefault();
+
+            var cityName = $("#city-name").val();
+            getWeather(cityName); 
+        });
+        
+        function getWeather(city){
+            $.get("http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=d11771b7ba65e99baa089a03cbd1362b", function(data){
+                console.log(data);
+                $("#description").html(data.weather[0].description);
+                $("#temp").html(data.main.temp);
+        })
+        }
+       
+
+    </script>
+    <!-- Added moment.js for time/date referrence/functionality-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     
+    
+            
 </body>
-</html>
+</html>  
