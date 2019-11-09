@@ -1,0 +1,21 @@
+.navbar-brand {
+   font-size: 30px;
+   font-weight: 
+   
+}
+
+.bg-city {
+    background-color: aqua;
+}
+
+.weather-conditions {
+    background-color: coral;
+}
+
+.forecast {
+    background-color: lightgrey;
+}
+
+.card {
+    display: inline-block;
+}

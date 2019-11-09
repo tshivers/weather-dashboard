@@ -1,44 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
+    <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Added bootstrap cdn for style functionality-->
+
+    <!-- Added Bootstrap CDN for style functionality-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    
     <!-- Linked CSS -->
     <link rel="stylesheet" type="text/css" href="styles.css">
     
     <!-- Added jQuery CDN to load data from the openweathermap.org API -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+
+    <!-- Added moment.js for time/date referrence/functionality-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     
     <title>Weather Dashboard</title>
 </head>
 <body>
-    <div class="container">
-        <div class="dashboard">WEATHER DASHBOARD</div>
+    <!-- NAVBAR using Bootstrap Components -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
+            <div class="container">
+                <a class="navbar-brand" href="#">WEATHER DASHBOARD</a>
+            </div>
+        </nav>
 
-        <div class="citySearch">
-            <h4>Search for a City</h4>
-             <!-- <form class="city-search" action="/action_page.php">
-                <input type="text" placeholder="Enter City..." name="search">
-                <button type="submit"><i class="fa fa search"></i></button>
-            </form>
-        </div> -->
-        <div id="weather">
-        <div id="description"></div>
-        <div id="temp"></div>
+    <!-- LAYOUT using Bootstrap Grid-System -->   
+    <div class="container">
+        <!-- Rows (!! Up to 12 units !!) added for City Search, Current Weather Conditions, and 5-Day Forecast -->
+        <div class="row">
+            <div class="col-3 bg-city">
+                <h4>Search by City</h4>
+                <!-- div form to input city -->
+                <form id="city-form">
+                    <div><input type="text" id="city-name"></div>
+                    <div><input type="submit"></div>
+                </form>
+            </div> 
+             
+            <div id="show"></div>
+    <div>
+        <div class="container">
+            <div class="col-9 weather-conditions">
+                <h4>Current Weather Conditions</h4>
+                <div id="city"></div>
+                <div id="date"></div>
+                <div id="description"></div>
+                <div id="icon"></div>
+                <div id="temp"></div>
+                <div id="humidity"></div>
+                <div id="speed"></div>
+                <div id="index"></div>
+            </div>
+        </div>
+        <!-- Used Bootstrap CARDS to create 5-day forecast -->
+        <div class="container-fluid">
+            <h4>
+                5-Day Forecast:
+            </h4>
+            <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
+                <div class="card-header">Header</div>
+                <div class="day-1">
+                    <p class="temp">Temp:</p>
+                    <p class="humidity">Humidity</p>
+                </div>
+        </div>
+            <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
+                <div class="card-header">Header</div>
+                <div class="day-2">
+                    <p class="temp">Temp:</p>
+                    <p class="humidity">Humidity:</p>
+                </div>
+        </div>
+            <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
+                <div class="card-header">Header</div>
+                <div class="day-3">
+                    <p class="temp">Temp:</p>
+                    <p class="humidity">Humidity:</p>
+                </div>
+        </div>
+            
+        <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
+                <div class="card-header">Header</div>
+                <div class="day-4">
+                    <p class="temp">Temp:</p>
+                    <p class="humidity">Humidity:</p>
+                </div>
         </div>
 
-        <!-- div form to input city-->
-        <div>
-            <form id="city-form">
-                <div><input type="text" id="city-name"></div>
-                <div><input type="submit"></div>
-             </form> 
-       </div>
-    <!-- Weather Dashboard functionality in Steps -->
+        <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
+                <div class="card-header">Header</div>
+                <div class="day-5">
+                    <p class="temp">Temp:</p>
+                    <p class="humidity">Humidity:</p>
+                </div>
+        </div>
+
+    <!-- Weather Dashboard functionality in Steps: -->
     <!-- Step 1: Used and removed $(document).ready(() {} within the script tag below to test page funtionality of jQuery event and call functions -->
     <!-- Step 2: event.preventDefault added to submit button to prevent the default behavior of the page or the reloading of page(s) -->
     <!-- Step 3: After adding event.preventDefault(), as a form handler used JS to create var to get value e.g. city element -->
@@ -53,18 +116,17 @@
         
         function getWeather(city){
             $.get("http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=d11771b7ba65e99baa089a03cbd1362b", function(data){
-                console.log(data);
+             
+                $("#city").html(data.main.name);
                 $("#description").html(data.weather[0].description);
+                $("#icon").html(data.weather[0].icon+".png");
                 $("#temp").html(data.main.temp);
+                $("#humidity").html(data.main.humidity);
+                $("#speed").html(data.wind.speed);
         })
+        
         }
-       
 
-    </script>
-    <!-- Added moment.js for time/date referrence/functionality-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    
-    
-            
+    </script>                
 </body>
 </html>  
