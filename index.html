@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <!-- Added Bootstrap CDN for style functionality-->
+    <!-- Added Bootstrap CDN for styling functionality-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
     
@@ -24,9 +24,9 @@
 </head>
 <body>
     <!-- NAVBAR using Bootstrap Components -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> 
             <div class="container">
-                <a class="navbar-brand" href="#">WEATHER DASHBOARD</a>
+                <a class="navbar-brand" href="#weather-text">WEATHER DASHBOARD</a>
             </div>
         </nav>
 
@@ -41,10 +41,18 @@
                     <div><input type="text" id="city-name"></div>
                     <div><input type="submit"></div>
                 </form>
+                <!-- input form to display Recent Searches in localStorage -->
+                <ul class="nav flex-column" id="search">
+                    <li class="nav-item">Recent Searches</li>
+                    <input type="text" class="form-control" id="" placeholder="">
+                </ul>
+                <!-- added Clear All button to clear user input/add functionality -->
+                <button>Clear All</button>
             </div> 
-             
+
             <div id="show"></div>
     <div>
+        <!-- div container that stores current weather conditions for getWeather(city) function below in script -->
         <div class="container">
             <div class="col-9 weather-conditions">
                 <h4>Current Weather Conditions</h4>
@@ -58,27 +66,28 @@
                 <div id="index"></div>
             </div>
         </div>
-        <!-- Used Bootstrap CARDS to create 5-day forecast -->
+        <!-- Used Bootstrap Cards model to create 5-day forecast templates -->
+       <!-- Need to add functionality -->
         <div class="container-fluid">
             <h4>
                 5-Day Forecast:
             </h4>
             <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
-                <div class="card-header">Header</div>
+                <div class="card-header">M/D/YYYY</div>
                 <div class="day-1">
                     <p class="temp">Temp:</p>
                     <p class="humidity">Humidity</p>
                 </div>
         </div>
             <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
-                <div class="card-header">Header</div>
+                <div class="card-header">M/D/YYYY</div>
                 <div class="day-2">
                     <p class="temp">Temp:</p>
                     <p class="humidity">Humidity:</p>
                 </div>
         </div>
             <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
-                <div class="card-header">Header</div>
+                <div class="card-header">M/D/YYYY</div>
                 <div class="day-3">
                     <p class="temp">Temp:</p>
                     <p class="humidity">Humidity:</p>
@@ -86,7 +95,7 @@
         </div>
             
         <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
-                <div class="card-header">Header</div>
+                <div class="card-header">M/D/YYYY</div>
                 <div class="day-4">
                     <p class="temp">Temp:</p>
                     <p class="humidity">Humidity:</p>
@@ -94,7 +103,7 @@
         </div>
 
         <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
-                <div class="card-header">Header</div>
+                <div class="card-header">M/D/YYYY</div>
                 <div class="day-5">
                     <p class="temp">Temp:</p>
                     <p class="humidity">Humidity:</p>
@@ -104,14 +113,21 @@
     <!-- Weather Dashboard functionality in Steps: -->
     <!-- Step 1: Used and removed $(document).ready(() {} within the script tag below to test page funtionality of jQuery event and call functions -->
     <!-- Step 2: event.preventDefault added to submit button to prevent the default behavior of the page or the reloading of page(s) -->
-    <!-- Step 3: After adding event.preventDefault(), as a form handler used JS to create var to get value e.g. city element -->
+    <!-- Step 3: After adding event.preventDefault(), as a form handler used JS to create variables to get the weather value and icon of each city element -->
     <!-- Step 4: Call to open the openweathermap api to get data for web page using jQuery ajax .get method -->
     <script>
         $("#city-form").submit(function(event){ 
             event.preventDefault();
 
             var cityName = $("#city-name").val();
-            getWeather(cityName); 
+            getWeather(cityName);  
+            
+            /*
+            var kelvin = $("#temp").val();
+            getWeather(kelvin);
+
+            var celsius = kelvin - 273;
+            let fahrenheit = Math.floor(celsius * (9/5) + 32);*/
         });
         
         function getWeather(city){
@@ -119,14 +135,20 @@
              
                 $("#city").html(data.main.name);
                 $("#description").html(data.weather[0].description);
-                $("#icon").html(data.weather[0].icon+".png");
-                $("#temp").html(data.main.temp);
-                $("#humidity").html(data.main.humidity);
-                $("#speed").html(data.wind.speed);
-        })
+                $("#icon").html("<img src='http://openweathermap.org/img/w/" + data.weather[0].icon + ".png'>");
+                $("#temp").html("Temperatue: " + data.main.temp + " °K");
+                $("#humidity").html("Humidity: " + data.main.humidity + "%");
+                $("#speed").html("Wind Speed: " + data.wind.speed + " mph");
+            });
+            }
         
-        }
+            var currentDate = moment().format('M/D/YYYY');
+            var mainDate = document.getElementById('currentDay');
+            date.innerHTML = currentDate;
 
-    </script>                
+    </script>  
+    <!-- Create additional functions within above script or preferably script.js: 
+        - to store Recent Searches in localStorage
+        - to display icons for Current Weather Conditions and 5-Day Forecast -->              
 </body>
 </html>  

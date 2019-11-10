@@ -1,7 +1,13 @@
-$(document).ready(function(){
+  /* 
+  $(document).ready(function(){
     var latPush = [""];
     var lonPush = [""];
 
-    $(document).ready(function(){
-    /* some var here */
-    });
+    function displayRecentSearch();
+    var recentSeraches = getCityFromLocalStorage();
+    localStorage.getItem("resentSearches");
+    var recentSearches
+    }); */
+    
+
+
