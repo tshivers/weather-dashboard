@@ -52,7 +52,7 @@
 
             <div id="show"></div>
     <div>
-        <!-- div container that stores current weather conditions for getWeather(city) function below in script -->
+        <!-- div container that stores current weather conditions for getWeather(city); function in script.js -->
         <div class="container">
             <div class="col-9 weather-conditions">
                 <h4>Current Weather Conditions</h4>
@@ -66,89 +66,58 @@
                 <div id="index"></div>
             </div>
         </div>
-        <!-- Used Bootstrap Cards model to create 5-day forecast templates -->
+       <!-- Used Bootstrap Cards model to create 5-day forecast templates -->
        <!-- Need to add functionality -->
         <div class="container-fluid">
             <h4>
                 5-Day Forecast:
             </h4>
             <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
-                <div class="card-header">M/D/YYYY</div>
-                <div class="day-1">
-                    <p class="temp">Temp:</p>
-                    <p class="humidity">Humidity</p>
+                <div class="dayOne">
+                    <p class="temp"></p>
+                    <p class="humidity"></p>
+                </div> 
+        </div>
+            <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
+                <div class="dayTwo">
+                    <p class="temp"></p>
+                    <p class="humidity"></p>
                 </div>
         </div>
             <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
-                <div class="card-header">M/D/YYYY</div>
-                <div class="day-2">
-                    <p class="temp">Temp:</p>
-                    <p class="humidity">Humidity:</p>
-                </div>
-        </div>
-            <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
-                <div class="card-header">M/D/YYYY</div>
-                <div class="day-3">
-                    <p class="temp">Temp:</p>
-                    <p class="humidity">Humidity:</p>
+                <div class="dayThree">
+                    <p class="temp"></p>
+                    <p class="humidity"></p>
                 </div>
         </div>
             
         <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
-                <div class="card-header">M/D/YYYY</div>
-                <div class="day-4">
-                    <p class="temp">Temp:</p>
-                    <p class="humidity">Humidity:</p>
+                <div class="dayFour">
+                    <p class="temp"></p>
+                    <p class="humidity"></p>
                 </div>
         </div>
 
         <div class="card text-white bg-primary mb-3" style="max-width: 9rem;">
-                <div class="card-header">M/D/YYYY</div>
-                <div class="day-5">
-                    <p class="temp">Temp:</p>
-                    <p class="humidity">Humidity:</p>
+                <div class="dayFive">
+                    <p class="temp"></p>
+                    <p class="humidity"></p>
                 </div>
         </div>
 
-    <!-- Weather Dashboard functionality in Steps: -->
-    <!-- Step 1: Used and removed $(document).ready(() {} within the script tag below to test page funtionality of jQuery event and call functions -->
-    <!-- Step 2: event.preventDefault added to submit button to prevent the default behavior of the page or the reloading of page(s) -->
-    <!-- Step 3: After adding event.preventDefault(), as a form handler used JS to create variables to get the weather value and icon of each city element -->
-    <!-- Step 4: Call to open the openweathermap api to get data for web page using jQuery ajax .get method -->
-    <script>
-        $("#city-form").submit(function(event){ 
-            event.preventDefault();
-
-            var cityName = $("#city-name").val();
-            getWeather(cityName);  
-            
-            /*
-            var kelvin = $("#temp").val();
-            getWeather(kelvin);
-
-            var celsius = kelvin - 273;
-            let fahrenheit = Math.floor(celsius * (9/5) + 32);*/
-        });
+     <script src="script.js">
         
-        function getWeather(city){
-            $.get("http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=d11771b7ba65e99baa089a03cbd1362b", function(data){
-             
-                $("#city").html(data.main.name);
-                $("#description").html(data.weather[0].description);
-                $("#icon").html("<img src='http://openweathermap.org/img/w/" + data.weather[0].icon + ".png'>");
-                $("#temp").html("Temperatue: " + data.main.temp + " °K");
-                $("#humidity").html("Humidity: " + data.main.humidity + "%");
-                $("#speed").html("Wind Speed: " + data.wind.speed + " mph");
-            });
-            }
+        /* adding for loop to get and store local storage */
+        var cityName = document.getElementById("city-name");
         
-            var currentDate = moment().format('M/D/YYYY');
-            var mainDate = document.getElementById('currentDay');
-            date.innerHTML = currentDate;
+    
+        for (var i = 0; i  < localStorage.length; i++){
+            var key = localStorage.key(i);
+            var value = localStorage.getItem(key);
 
-    </script>  
-    <!-- Create additional functions within above script or preferably script.js: 
-        - to store Recent Searches in localStorage
-        - to display icons for Current Weather Conditions and 5-Day Forecast -->              
+            localStorOutput.innerHTML += `${key}: ${value}<br />`;
+        }
+
+     </script>            
 </body>
 </html>  
